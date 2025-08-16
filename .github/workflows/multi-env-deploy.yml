@@ -1,0 +1,46 @@
+# .github/workflows/multi-env-deploy.yml
+name: Multi-Environment Deploy
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Development environment
+  deploy-dev:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy to Dev
+      run: |
+        echo "🚀 Deploying to Development"
+        # Development deployment commands
+        
+  # Staging environment  
+  deploy-staging:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy to Staging
+      run: |
+        echo "🎭 Deploying to Staging"
+        # Staging deployment commands
+        
+  # Production environment
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [build-and-test]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy to Production
+      run: |
+        echo "🔥 Deploying to Production"
+        # Production deployment commands

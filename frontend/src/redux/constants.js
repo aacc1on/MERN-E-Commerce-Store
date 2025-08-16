@@ -1,4 +1,5 @@
-export const BASE_URL = "";
+// Use Vite env var in Docker, fallback to local dev backend
+export const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 export const USERS_URL = "/api/users";
 export const CATEGORY_URL = "/api/category";
 export const PRODUCT_URL = "/api/products";

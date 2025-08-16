@@ -15,8 +15,8 @@ const Home = () => {
       {isLoading ? (
         <Loader />
       ) : isError ? (
-        <Message variant="danger">
-          {isError?.data.message || isError.error}
+        <Message variant="error">
+          {isError?.data?.message || isError?.error || 'An error occurred while loading products'}
         </Message>
       ) : (
         <>
